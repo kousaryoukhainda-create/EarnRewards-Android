@@ -91,16 +91,6 @@ android {
     }
 }
 
-repositories {
-    google()
-    mavenCentral()
-    maven { url 'https://artifacts.applovin.com/android' }
-    maven { url 'https://sdk.mintegral.com' }
-    maven { url 'https://dl-maven.pangle.io' }
-    maven { url 'https://maven.appsflyer.com' }
-    maven { url 'https://jitpack.io' }
-}
-
 dependencies {
     // Core Android
     implementation 'androidx.appcompat:appcompat:1.6.1'
