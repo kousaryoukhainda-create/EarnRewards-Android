@@ -11,6 +11,9 @@ jobs:
   build:
     runs-on: ubuntu-latest
     
+    env:
+      GRADLE_USER_HOME: ${{ github.workspace }}/.gradle
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
@@ -20,19 +23,34 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: gradle
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
 
     - name: Accept Android SDK Licenses
       run: |
-        yes | sdkmanager --licenses > /dev/null 2>&1 || true
+        mkdir -p $ANDROID_HOME/licenses
+        echo "8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license
+        echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> $ANDROID_HOME/licenses/android-sdk-license
+        echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> $ANDROID_HOME/licenses/android-sdk-license
+
+    - name: Create google-services.json
+      run: |
+        if [ -n "${{ secrets.GOOGLE_SERVICES_JSON }}" ]; then
+          echo '${{ secrets.GOOGLE_SERVICES_JSON }}' > google-services.json
+          echo "✓ google-services.json created from secret"
+        else
+          echo "::warning::GOOGLE_SERVICES_JSON secret not set. Build may fail."
+          # Create minimal placeholder to allow gradle sync
+          echo '{"client":[]}' > google-services.json
+        fi
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
     - name: Build Debug APK
-      run: ./gradlew assembleDebug --no-daemon
+      run: ./gradlew assembleDebug --no-daemon --stacktrace --info
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
@@ -40,3 +58,13 @@ jobs:
         name: app-debug
         path: app/build/outputs/apk/debug/app-debug.apk
         retention-days: 30
+
+    - name: Upload build log
+      if: failure()
+      uses: actions/upload-artifact@v4
+      with:
+        name: build-log
+        path: |
+          app/build/outputs/
+          .gradle/
+        retention-days: 7
