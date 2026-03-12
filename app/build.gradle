@@ -15,6 +15,7 @@ plugins {
 }
 
 android {
+    namespace 'com.ykapps.earnrewards'
     compileSdk 34
     ndkVersion "25.1.8937393"
 
