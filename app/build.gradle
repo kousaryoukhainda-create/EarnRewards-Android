@@ -118,22 +118,14 @@ dependencies {
     // AppLovin MAX Mediation
     implementation 'com.applovin:applovin-sdk:12.0.0'
 
-    // AppLovin Mediation Adapters
+    // AppLovin Mediation Adapters (available via AppLovin repo)
     implementation 'com.applovin.mediation:facebook-adapter:6.15.0.0'
     implementation 'com.applovin.mediation:google-adapter:22.6.0.0'
-    implementation 'com.applovin.mediation:ironsource-adapter:7.2.4.1.1'
-    implementation 'com.applovin.mediation:pangle-adapter:5.8.0.5'
-    implementation 'com.applovin.mediation:inmobi-adapter:10.0.1.1'
-    implementation 'com.applovin.mediation:mintegral-adapter:16.2.11.0'
-    implementation 'com.applovin.mediation:ogury-adapter:3.4.0.0'
 
     // Facebook Audience Network
     implementation 'com.facebook.android:audience-network-sdk:6.15.0'
 
-    // Pangle (ByteDance)
-    implementation 'com.pangle.global:ads-sdk:5.8.0.5'
-
-    // AppsFlyer
+    // AppsFlyer (available via Maven Central)
     implementation 'com.appsflyer:af-android-sdk:6.10.2'
 
     // In-App Billing

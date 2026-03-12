@@ -4,10 +4,6 @@ pluginManagement {
         google()
         mavenCentral()
         maven { url 'https://artifacts.applovin.com/android' }
-        maven { url 'https://sdk.mintegral.com' }
-        maven { url 'https://dl-maven.pangle.io' }
-        maven { url 'https://maven.appsflyer.com' }
-        maven { url 'https://jitpack.io' }
     }
 }
 dependencyResolutionManagement {
@@ -16,10 +12,6 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url 'https://artifacts.applovin.com/android' }
-        maven { url 'https://sdk.mintegral.com' }
-        maven { url 'https://dl-maven.pangle.io' }
-        maven { url 'https://maven.appsflyer.com' }
-        maven { url 'https://jitpack.io' }
     }
 }
 rootProject.name = "EarnRewards"
