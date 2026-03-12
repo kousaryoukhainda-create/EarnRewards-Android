@@ -4,14 +4,9 @@ buildscript {
         google()
         mavenCentral()
         maven { url 'https://artifacts.applovin.com/android' }
-        maven { url 'https://sdk.mintegral.com' }
-        maven { url 'https://dl-maven.pangle.io' }
-        maven { url 'https://maven.appsflyer.com' }
-        maven { url 'https://jitpack.io' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:8.0.0'
-        classpath 'com.google.gms:google-services:4.3.15'
     }
 }
 
@@ -165,5 +160,3 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
 }
-
-apply plugin: 'com.google.gms.google-services'
