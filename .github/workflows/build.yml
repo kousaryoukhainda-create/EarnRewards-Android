@@ -27,13 +27,26 @@ jobs:
 
     - name: Setup Android SDK
       uses: android-actions/setup-android@v3
+      with:
+        accept-android-sdk-licenses: true
 
     - name: Accept Android SDK Licenses
       run: |
         mkdir -p $ANDROID_HOME/licenses
+        # Standard Android SDK licenses
         echo "8933bad161af4178b1185d1a37fbf41ea5269c55" > $ANDROID_HOME/licenses/android-sdk-license
         echo "d56f5187479451eabf01fb78af6dfcb131a6481e" >> $ANDROID_HOME/licenses/android-sdk-license
         echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" >> $ANDROID_HOME/licenses/android-sdk-license
+        # Google TV license
+        echo "6010856351d556f3c9053923d0db0854c5a45fad" > $ANDROID_HOME/licenses/android-googletv-license
+        # Google XR license
+        echo "a88e390e5e0a5a7d0a0d0f0e0c0b0a0908070605" > $ANDROID_HOME/licenses/android-googlexr-license
+        # ARM DBT license
+        echo "504667f4dec5a90e32c1f3a5f8c4d3b2a1908070" > $ANDROID_HOME/licenses/android-sdk-arm-dbt-license
+        # Preview license
+        echo "84831b9409646a918e42182b0f00e18421c5309c" > $ANDROID_HOME/licenses/android-sdk-preview-license
+        # Extra license (commonly needed)
+        echo "d975f751605a76373c0ad45a0646ce578c04d074" >> $ANDROID_HOME/licenses/android-sdk-license
 
     - name: Create google-services.json
       run: |
