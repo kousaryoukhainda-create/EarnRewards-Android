@@ -1,0 +1,176 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    repositories {
+        google()
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:8.0.0'
+        classpath 'com.google.gms:google-services:4.3.15'
+    }
+}
+
+plugins {
+    id 'com.android.application' version '8.0.0'
+}
+
+android {
+    compileSdk 34
+    ndkVersion "25.1.8937393"
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_11
+        targetCompatibility JavaVersion.VERSION_11
+    }
+
+    defaultConfig {
+        applicationId "com.ykapps.earnrewards"
+        minSdk 21
+        targetSdk 34
+        versionCode 1
+        versionName "12.9.1"
+        
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        
+        // Vector drawables
+        vectorDrawables.useSupportLibrary = true
+        
+        // Multidex support for 65k method limit
+        multiDexEnabled true
+    }
+
+    signingConfigs {
+        release {
+            storeFile file("keystore.jks")
+            storePassword System.getenv("KEYSTORE_PASSWORD") ?: "password"
+            keyAlias System.getenv("KEY_ALIAS") ?: "earnrewards"
+            keyPassword System.getenv("KEY_PASSWORD") ?: "password"
+        }
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+            minifyEnabled false
+            shrinkResources false
+            applicationIdSuffix ".debug"
+            versionNameSuffix "-debug"
+        }
+        
+        release {
+            debuggable false
+            minifyEnabled true
+            shrinkResources true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
+        }
+    }
+
+    buildFeatures {
+        viewBinding true
+        dataBinding true
+    }
+
+    packaging {
+        resources {
+            excludes += [
+                'META-INF/proguard/androidx-*.pro',
+                'META-INF/androidx.*.version'
+            ]
+        }
+    }
+
+    lint {
+        disable 'MissingTranslation', 'ExtraTranslation'
+    }
+}
+
+dependencies {
+    // Core Android
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+    implementation 'androidx.core:core:1.10.1'
+    implementation 'androidx.multidex:multidex:2.0.1'
+    implementation 'com.google.android.material:material:1.9.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Flutter
+    implementation 'io.flutter:flutter_embedding_release:1.0.0-+'
+
+    // Firebase BOM (Bill of Materials)
+    implementation platform('com.google.firebase:firebase-bom:32.2.0')
+    implementation 'com.google.firebase:firebase-analytics'
+    implementation 'com.google.firebase:firebase-database'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-config'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-performance'
+    implementation 'com.google.firebase:firebase-crashlytics'
+
+    // Google Play Services
+    implementation 'com.google.android.gms:play-services-ads:22.6.0'
+    implementation 'com.google.android.gms:play-services-basement:18.2.0'
+    implementation 'com.google.android.gms:play-services-auth:20.5.0'
+    implementation 'com.google.android.gms:play-services-location:21.0.1'
+    implementation 'com.google.android.gms:play-services-tasks:18.0.2'
+
+    // AppLovin MAX Mediation
+    implementation 'com.applovin:applovin-sdk:12.0.0'
+    
+    // AppLovin Mediation Adapters
+    implementation 'com.applovin.mediation:facebook-adapter:6.15.0.0'
+    implementation 'com.applovin.mediation:google-adapter:22.6.0.0'
+    implementation 'com.applovin.mediation:ironsource-adapter:7.2.4.1.1'
+    implementation 'com.applovin.mediation:pangle-adapter:5.8.0.5'
+    implementation 'com.applovin.mediation:inmobi-adapter:10.0.1.1'
+    implementation 'com.applovin.mediation:mintegral-adapter:16.2.11.0'
+    implementation 'com.applovin.mediation:ogury-adapter:3.4.0.0'
+
+    // Facebook Audience Network
+    implementation 'com.facebook.android:audience-network-sdk:6.15.0'
+
+    // Pangle (ByteDance)
+    implementation 'com.pangle.global:ads-sdk:5.8.0.5'
+
+    // AppsFlyer
+    implementation 'com.appsflyer:af-android-sdk:6.10.2'
+    implementation 'com.appsflyer:af-android-sdk-attribution:6.10.2'
+
+    // In-App Billing
+    implementation 'com.android.billingclient:billing:6.0.1'
+
+    // OkHttp3 (HTTP client)
+    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
+
+    // Retrofit (REST client)
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+
+    // Gson (JSON parsing)
+    implementation 'com.google.code.gson:gson:2.10.1'
+
+    // Kotlin stdlib
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.9.10'
+
+    // Lifecycle
+    implementation 'androidx.lifecycle:lifecycle-runtime:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.6.1'
+    implementation 'androidx.lifecycle:lifecycle-livedata:2.6.1'
+
+    // Room Database
+    implementation 'androidx.room:room-runtime:2.5.2'
+    annotationProcessor 'androidx.room:room-compiler:2.5.2'
+
+    // DataStore
+    implementation 'androidx.datastore:datastore-preferences:1.0.0'
+
+    // Work Manager
+    implementation 'androidx.work:work-runtime:2.8.1'
+
+    // Testing
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:5.2.1'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
+
+apply plugin: 'com.google.gms.google-services'
